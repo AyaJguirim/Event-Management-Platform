@@ -1,0 +1,50 @@
+<div class="page">
+  <div class="contenu">
+    <a routerLink="/evenements" class="retour">← Retour aux événements</a>
+
+    @if (enCours()) {
+      <p class="message">Chargement...</p>
+    }
+
+    @if (evenement(); as evt) {
+      <span class="categorie">{{ evt.categorieNom }}</span>
+      <h1 class="titre">{{ evt.titre }}</h1>
+      <p class="meta">{{ evt.date | date: 'dd/MM/yyyy à HH:mm' }} · {{ evt.lieu }}</p>
+      <p class="description">{{ evt.description }}</p>
+
+      <div class="infos">
+        <div class="infos__item">
+          <span class="infos__label">Prix</span>
+          <span class="infos__valeur">{{ evt.prix === 0 ? 'Gratuit' : evt.prix + ' DT' }}</span>
+        </div>
+        <div class="infos__item">
+          <span class="infos__label">Places disponibles</span>
+          <span class="infos__valeur" [class.infos__valeur--complet]="evt.placesDisponibles === 0"
+            >{{ evt.placesDisponibles }} / {{ evt.capacite }}</span
+          >
+        </div>
+      </div>
+
+      @if (messageErreur()) {
+        <p class="message message--erreur">{{ messageErreur() }}</p>
+      }
+      @if (messageSucces()) {
+        <p class="message message--succes">{{ messageSucces() }}</p>
+      }
+
+      <button
+        (click)="sInscrire()"
+        [disabled]="evt.placesDisponibles === 0 || inscriptionEnCours() || !!messageSucces()"
+        class="bouton bouton--plein"
+      >
+        @if (evt.placesDisponibles === 0) {
+          Événement complet
+        } @else if (inscriptionEnCours()) {
+          Inscription en cours...
+        } @else {
+          S'inscrire à cet événement
+        }
+      </button>
+    }
+  </div>
+</div>

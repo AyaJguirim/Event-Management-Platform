@@ -1,0 +1,62 @@
+<div class="section">
+  <div class="section__entete">
+    <h1 class="section__titre">Catégories</h1>
+    @if (modeEdition() === null) {
+      <button (click)="ouvrirAjout()" class="bouton bouton--plein">Ajouter une catégorie</button>
+    }
+  </div>
+
+  @if (messageErreur()) {
+    <p class="message message--erreur">{{ messageErreur() }}</p>
+  }
+  @if (messageSucces()) {
+    <p class="message message--succes">{{ messageSucces() }}</p>
+  }
+
+  @if (modeEdition() !== null) {
+    <form class="formulaire" [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+      <div class="champ">
+        <label>Nom</label>
+        <input
+          type="text"
+          formControlName="nom"
+          [class.champ--erreur]="nom?.invalid && nom?.touched"
+        />
+        @if (nom?.invalid && nom?.touched) {
+          <span class="champ__erreur">Le nom est obligatoire.</span>
+        }
+      </div>
+      <div class="champ">
+        <label>Description</label>
+        <input type="text" formControlName="description" />
+      </div>
+      <div class="formulaire__actions">
+        <button type="submit" class="bouton bouton--plein">Enregistrer</button>
+        <button type="button" (click)="annuler()" class="bouton bouton--contour">Annuler</button>
+      </div>
+    </form>
+  }
+
+  @if (enCours()) {
+    <p class="message">Chargement...</p>
+  }
+
+  <div class="liste">
+    @for (categorie of categories(); track categorie.id) {
+      <div class="ligne">
+        <div class="ligne__principal">
+          <h2 class="ligne__titre">{{ categorie.nom }}</h2>
+          <p class="ligne__meta">{{ categorie.description }}</p>
+        </div>
+        <div class="ligne__actions">
+          <button (click)="ouvrirEdition(categorie)" class="bouton bouton--contour bouton--petit">
+            Modifier
+          </button>
+          <button (click)="supprimer(categorie)" class="bouton bouton--danger bouton--petit">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

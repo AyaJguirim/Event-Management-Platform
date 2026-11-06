@@ -1,0 +1,41 @@
+<div class="page">
+  <div class="contenu">
+    <a routerLink="/evenements" class="retour">← Retour aux événements</a>
+    <h1 class="titre">Mes inscriptions</h1>
+
+    @if (enCours()) {
+      <p class="message">Chargement...</p>
+    }
+    @if (messageErreur()) {
+      <p class="message message--erreur">{{ messageErreur() }}</p>
+    }
+    @if (!enCours() && inscriptions().length === 0) {
+      <p class="message">Vous n'avez encore aucune inscription.</p>
+    }
+
+    <div class="liste">
+      @for (inscription of inscriptions(); track inscription.id) {
+        <div class="ligne">
+          <div class="ligne__principal">
+            <h2 class="ligne__titre">{{ inscription.evenementTitre }}</h2>
+            <p class="ligne__meta">
+              Inscrit le {{ inscription.dateInscription | date: 'dd/MM/yyyy' }} ·
+              <span class="etat" [class]="'etat--' + inscription.etat.toLowerCase()">{{
+                libelleEtat(inscription.etat)
+              }}</span>
+            </p>
+          </div>
+          @if (peutAnnuler(inscription.etat)) {
+            <button
+              (click)="annuler(inscription.id)"
+              [disabled]="annulationEnCoursId() === inscription.id"
+              class="bouton bouton--contour"
+            >
+              {{ annulationEnCoursId() === inscription.id ? 'Annulation...' : 'Annuler' }}
+            </button>
+          }
+        </div>
+      }
+    </div>
+  </div>
+</div>

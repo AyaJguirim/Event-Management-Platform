@@ -1,0 +1,15 @@
+.section__titre { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 1.75rem; margin: 0 0 2rem; }
+
+.message { font-size: 0.875rem; padding: 0.75rem 1rem; border-radius: 4px; margin-bottom: 1.5rem; color: #9AA5BD; }
+.message--erreur { background: rgba(217, 105, 79, 0.12); color: #E8917A; }
+
+.liste { display: flex; flex-direction: column; }
+.ligne { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.25rem 0; border-bottom: 1px dashed rgba(244, 241, 233, 0.12); }
+.ligne__titre { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.0625rem; margin: 0 0 0.25rem; }
+.ligne__meta { font-size: 0.8125rem; color: #9AA5BD; margin: 0; }
+
+.select-etat {
+  font-family: 'Work Sans', sans-serif; font-size: 0.8125rem; font-weight: 500;
+  background: #1B2740; border: 1px solid rgba(244, 241, 233, 0.15); border-radius: 4px;
+  padding: 0.45rem 0.75rem; color: #F4F1E9; cursor: pointer;
+}

@@ -1,0 +1,19 @@
+<div class="verification">
+  <div class="verification__panel">
+    <a routerLink="/" class="verification__marque">Événements&nbsp;&amp;&nbsp;Inscriptions</a>
+
+    @if (enCours()) {
+      <p class="verification__message">Vérification en cours...</p>
+    } @else if (succes()) {
+      <h1 class="verification__titre">Adresse vérifiée !</h1>
+      <p class="verification__texte">
+        Votre compte est maintenant actif. Vous pouvez vous connecter.
+      </p>
+      <a routerLink="/login" class="bouton bouton--plein">Se connecter</a>
+    } @else {
+      <h1 class="verification__titre">Vérification impossible</h1>
+      <p class="verification__texte verification__texte--erreur">{{ messageErreur() }}</p>
+      <a routerLink="/login" class="bouton bouton--contour">Retour à la connexion</a>
+    }
+  </div>
+</div>

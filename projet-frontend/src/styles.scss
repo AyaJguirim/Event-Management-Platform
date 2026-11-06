@@ -1,0 +1,13 @@
+/* Styles globaux */
+html,
+body {
+    margin: 0;
+    padding: 0;
+    background: #0F1626;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}

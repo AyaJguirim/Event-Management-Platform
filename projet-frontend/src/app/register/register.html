@@ -1,0 +1,84 @@
+<div class="inscription">
+  <div class="inscription__panel">
+    <a routerLink="/" class="inscription__marque">Événements&nbsp;&amp;&nbsp;Inscriptions</a>
+
+    <h1 class="inscription__titre">Créer un compte</h1>
+    <p class="inscription__soustitre">
+      Rejoignez la plateforme pour consulter le programme et réserver votre place aux événements.
+    </p>
+
+    <form class="formulaire" [formGroup]="formulaire" (ngSubmit)="soumettre()">
+      <div class="champ">
+        <label for="prenom">Prénom</label>
+        <input
+          id="prenom"
+          type="text"
+          formControlName="prenom"
+          [class.champ--erreur]="prenom?.invalid && prenom?.touched"
+        />
+        @if (prenom?.invalid && prenom?.touched) {
+          <span class="champ__erreur">Le prénom est obligatoire.</span>
+        }
+      </div>
+
+      <div class="champ">
+        <label for="nom">Nom</label>
+        <input
+          id="nom"
+          type="text"
+          formControlName="nom"
+          [class.champ--erreur]="nom?.invalid && nom?.touched"
+        />
+        @if (nom?.invalid && nom?.touched) {
+          <span class="champ__erreur">Le nom est obligatoire.</span>
+        }
+      </div>
+
+      <div class="champ">
+        <label for="email">Adresse email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [class.champ--erreur]="email?.invalid && email?.touched"
+        />
+        @if (email?.invalid && email?.touched) {
+          <span class="champ__erreur">Adresse email invalide.</span>
+        }
+      </div>
+
+      <div class="champ">
+        <label for="motDePasse">Mot de passe</label>
+        <input
+          id="motDePasse"
+          type="password"
+          formControlName="motDePasse"
+          [class.champ--erreur]="motDePasse?.invalid && motDePasse?.touched"
+        />
+        @if (motDePasse?.invalid && motDePasse?.touched) {
+          <span class="champ__erreur">Au moins 6 caractères.</span>
+        }
+      </div>
+
+      @if (messageErreur()) {
+        <p class="formulaire__message formulaire__message--erreur">{{ messageErreur() }}</p>
+      }
+      @if (messageSucces()) {
+        <p class="formulaire__message formulaire__message--succes">{{ messageSucces() }}</p>
+      }
+
+      <button
+        type="submit"
+        class="bouton bouton--plein bouton--pleine-largeur"
+        [disabled]="enCours()"
+      >
+        {{ enCours() ? 'Création en cours...' : 'Créer mon compte' }}
+      </button>
+    </form>
+
+    <p class="inscription__lien">Déjà un compte ? <a routerLink="/login">Se connecter</a></p>
+    <p class="inscription__lien">
+      <a routerLink="/">← Retour à l'accueil</a>
+    </p>
+  </div>
+</div>

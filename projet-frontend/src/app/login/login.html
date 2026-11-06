@@ -1,0 +1,71 @@
+<div class="connexion">
+  <div class="connexion__panel">
+    <a routerLink="/" class="connexion__marque">Événements&nbsp;&amp;&nbsp;Inscriptions</a>
+
+    <h1 class="connexion__titre">Se connecter</h1>
+    <p class="connexion__soustitre">
+      Accédez à votre espace pour consulter et gérer vos inscriptions.
+    </p>
+
+    <form class="formulaire" [formGroup]="formulaire" (ngSubmit)="soumettre()">
+      <div class="champ">
+        <label for="email">Adresse email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [class.champ--erreur]="email?.invalid && email?.touched"
+        />
+        @if (email?.invalid && email?.touched) {
+          <span class="champ__erreur">Adresse email invalide.</span>
+        }
+      </div>
+
+      <div class="champ">
+        <label for="motDePasse">Mot de passe</label>
+        <input
+          id="motDePasse"
+          type="password"
+          formControlName="motDePasse"
+          [class.champ--erreur]="motDePasse?.invalid && motDePasse?.touched"
+        />
+        @if (motDePasse?.invalid && motDePasse?.touched) {
+          <span class="champ__erreur">Le mot de passe est obligatoire.</span>
+        }
+      </div>
+
+      @if (messageErreur()) {
+        <p class="formulaire__message formulaire__message--erreur">{{ messageErreur() }}</p>
+      }
+
+      @if (messageErreur().includes('non vérifié')) {
+        <button
+          type="button"
+          (click)="renvoyerEmail()"
+          [disabled]="renvoiEnCours()"
+          class="lien-renvoi"
+        >
+          {{ renvoiEnCours() ? 'Envoi en cours...' : "Renvoyer l'email de vérification" }}
+        </button>
+      }
+      @if (messageRenvoiSucces()) {
+        <p class="formulaire__message formulaire__message--succes">{{ messageRenvoiSucces() }}</p>
+      }
+
+      <button
+        type="submit"
+        class="bouton bouton--plein bouton--pleine-largeur"
+        [disabled]="enCours()"
+      >
+        {{ enCours() ? 'Connexion...' : 'Se connecter' }}
+      </button>
+    </form>
+
+    <p class="connexion__lien">
+      Pas encore de compte ? <a routerLink="/register">Créer un compte</a>
+    </p>
+    <p class="connexion__lien">
+      <a routerLink="/">← Retour à l'accueil</a>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="page">
+  <header class="entete">
+    <a routerLink="/" class="entete__marque">Événements&nbsp;&amp;&nbsp;Inscriptions</a>
+    <nav class="entete__nav">
+      <span class="entete__utilisateur">{{ utilisateur()?.prenom }} {{ utilisateur()?.nom }}</span>
+      <a routerLink="/mes-inscriptions" class="entete__lien">Mes inscriptions</a>
+      <button (click)="deconnexion()" class="entete__lien entete__lien--bouton">
+        Se déconnecter
+      </button>
+    </nav>
+  </header>
+
+  <main class="contenu">
+    <h1 class="titre">Événements à venir</h1>
+
+    <div class="filtres">
+      <div class="filtres__groupe">
+        <input
+          type="text"
+          [(ngModel)]="titreRecherche"
+          (keyup.enter)="rechercherParTitre()"
+          placeholder="Rechercher par titre..."
+          class="filtres__champ"
+        />
+        <button (click)="rechercherParTitre()" class="bouton bouton--contour">Rechercher</button>
+      </div>
+
+      <div class="filtres__groupe">
+        <select
+          [(ngModel)]="categorieSelectionnee"
+          (change)="filtrerParCategorie()"
+          class="filtres__champ"
+        >
+          <option [ngValue]="null">Toutes les catégories</option>
+          @for (categorie of categories(); track categorie.id) {
+            <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
+          }
+        </select>
+      </div>
+
+      <div class="filtres__groupe">
+        <input type="date" [(ngModel)]="dateDebut" class="filtres__champ" />
+        <span class="filtres__separateur">→</span>
+        <input type="date" [(ngModel)]="dateFin" class="filtres__champ" />
+        <button (click)="filtrerParDate()" class="bouton bouton--contour">Filtrer</button>
+      </div>
+
+      <button (click)="reinitialiser()" class="filtres__reinit">Réinitialiser</button>
+    </div>
+
+    @if (enCours()) {
+      <p class="message">Chargement...</p>
+    }
+    @if (messageErreur()) {
+      <p class="message message--erreur">{{ messageErreur() }}</p>
+    }
+    @if (!enCours() && evenements().length === 0) {
+      <p class="message">Aucun événement ne correspond à ces critères.</p>
+    }
+
+    <div class="liste">
+      @for (evenement of evenements(); track evenement.id) {
+        <a [routerLink]="['/evenements', evenement.id]" class="ligne">
+          <div class="ligne__principal">
+            <span class="ligne__categorie">{{ evenement.categorieNom }}</span>
+            <h2 class="ligne__titre">{{ evenement.titre }}</h2>
+            <p class="ligne__meta">
+              {{ evenement.date | date: 'dd/MM/yyyy à HH:mm' }} · {{ evenement.lieu }}
+            </p>
+          </div>
+          <div
+            class="ligne__places"
+            [class.ligne__places--faible]="
+              evenement.placesDisponibles <= 5 && evenement.placesDisponibles > 0
+            "
+            [class.ligne__places--complet]="evenement.placesDisponibles === 0"
+          >
+            @if (evenement.placesDisponibles === 0) {
+              Complet
+            } @else {
+              {{ evenement.placesDisponibles }} / {{ evenement.capacite }} places
+            }
+          </div>
+        </a>
+      }
+    </div>
+  </main>
+</div>

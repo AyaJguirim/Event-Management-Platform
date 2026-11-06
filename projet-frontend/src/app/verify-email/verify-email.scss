@@ -1,0 +1,66 @@
+:host { display: block; min-height: 100vh; }
+
+.verification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #0F1626;
+  padding: 2rem;
+}
+
+.verification__panel {
+  width: 100%;
+  max-width: 420px;
+  text-align: center;
+}
+
+.verification__marque {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: #E8A33D;
+  text-decoration: none;
+  margin-bottom: 3rem;
+}
+
+.verification__message {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9375rem;
+  color: #9AA5BD;
+}
+
+.verification__titre {
+  font-family: 'Fraunces', serif;
+  font-style: italic;
+  font-weight: 500;
+  font-size: 1.75rem;
+  color: #F4F1E9;
+  margin: 0 0 1rem;
+}
+
+.verification__texte {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: #9AA5BD;
+  margin: 0 0 2rem;
+}
+
+.verification__texte--erreur { color: #E8917A; }
+
+.bouton {
+  display: inline-block;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.75rem 2rem;
+  border-radius: 4px;
+}
+
+.bouton--plein { background: #E8A33D; color: #0F1626; }
+.bouton--plein:hover { background: #F3C878; }
+.bouton--contour { background: transparent; color: #F4F1E9; border: 1px solid rgba(244, 241, 233, 0.3); }
+.bouton--contour:hover { border-color: #E8A33D; color: #E8A33D; }

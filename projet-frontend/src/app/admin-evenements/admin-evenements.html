@@ -1,0 +1,123 @@
+<div class="section">
+  <div class="section__entete">
+    <h1 class="section__titre">Événements</h1>
+    @if (modeEdition() === null) {
+      <button (click)="ouvrirAjout()" class="bouton bouton--plein">Ajouter un événement</button>
+    }
+  </div>
+
+  @if (messageErreur()) {
+    <p class="message message--erreur">{{ messageErreur() }}</p>
+  }
+  @if (messageSucces()) {
+    <p class="message message--succes">{{ messageSucces() }}</p>
+  }
+
+  @if (modeEdition() !== null) {
+    <form class="formulaire" [formGroup]="formulaire" (ngSubmit)="enregistrer()">
+      <div class="champ">
+        <label>Titre</label>
+        <input
+          type="text"
+          formControlName="titre"
+          [class.champ--erreur]="titre?.invalid && titre?.touched"
+        />
+        @if (titre?.invalid && titre?.touched) {
+          <span class="champ__erreur">Le titre est obligatoire.</span>
+        }
+      </div>
+      <div class="champ">
+        <label>Description</label>
+        <textarea formControlName="description" rows="3"></textarea>
+      </div>
+      <div class="formulaire__ligne">
+        <div class="champ">
+          <label>Date et heure</label>
+          <input
+            type="datetime-local"
+            formControlName="date"
+            [class.champ--erreur]="date?.invalid && date?.touched"
+          />
+        </div>
+        <div class="champ">
+          <label>Lieu</label>
+          <input
+            type="text"
+            formControlName="lieu"
+            [class.champ--erreur]="lieu?.invalid && lieu?.touched"
+          />
+        </div>
+      </div>
+      <div class="formulaire__ligne">
+        <div class="champ">
+          <label>Capacité</label>
+          <input
+            type="number"
+            min="1"
+            formControlName="capacite"
+            [class.champ--erreur]="capacite?.invalid && capacite?.touched"
+          />
+        </div>
+        <div class="champ">
+          <label>Prix (DT)</label>
+          <input type="number" min="0" step="0.5" formControlName="prix" />
+        </div>
+        <div class="champ">
+          <label>Catégorie</label>
+          <select
+            formControlName="categorieId"
+            [class.champ--erreur]="categorieId?.invalid && categorieId?.touched"
+          >
+            <option [ngValue]="0" disabled>Choisir...</option>
+            @for (categorie of categories(); track categorie.id) {
+              <option [ngValue]="categorie.id">{{ categorie.nom }}</option>
+            }
+          </select>
+        </div>
+      </div>
+      <label class="case">
+        <input type="checkbox" formControlName="actif" />
+        Événement actif
+      </label>
+      <div class="formulaire__actions">
+        <button type="submit" class="bouton bouton--plein">Enregistrer</button>
+        <button type="button" (click)="annuler()" class="bouton bouton--contour">Annuler</button>
+      </div>
+    </form>
+  }
+
+  @if (enCours()) {
+    <p class="message">Chargement...</p>
+  }
+
+  <div class="liste">
+    @for (evenement of evenements(); track evenement.id) {
+      <div class="ligne">
+        <div class="ligne__principal">
+          <span class="ligne__categorie">{{ evenement.categorieNom }}</span>
+          <h2 class="ligne__titre">
+            {{ evenement.titre }}
+            @if (!evenement.actif) {
+              <span class="badge badge--inactif">Inactif</span>
+            }
+          </h2>
+          <p class="ligne__meta">
+            {{ evenement.date | date: 'dd/MM/yyyy à HH:mm' }} · {{ evenement.lieu }} ·
+            {{ evenement.placesDisponibles }}/{{ evenement.capacite }} places
+          </p>
+        </div>
+        <div class="ligne__actions">
+          <button (click)="basculerActif(evenement)" class="bouton bouton--contour bouton--petit">
+            {{ evenement.actif ? 'Désactiver' : 'Activer' }}
+          </button>
+          <button (click)="ouvrirEdition(evenement)" class="bouton bouton--contour bouton--petit">
+            Modifier
+          </button>
+          <button (click)="supprimer(evenement)" class="bouton bouton--danger bouton--petit">
+            Supprimer
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+</div>

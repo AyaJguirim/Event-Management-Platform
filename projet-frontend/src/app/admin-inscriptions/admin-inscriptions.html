@@ -1,0 +1,37 @@
+<div class="section">
+  <h1 class="section__titre">Inscriptions</h1>
+
+  @if (messageErreur()) {
+    <p class="message message--erreur">{{ messageErreur() }}</p>
+  }
+  @if (enCours()) {
+    <p class="message">Chargement...</p>
+  }
+  @if (!enCours() && inscriptions().length === 0) {
+    <p class="message">Aucune inscription pour le moment.</p>
+  }
+
+  <div class="liste">
+    @for (inscription of inscriptions(); track inscription.id) {
+      <div class="ligne">
+        <div class="ligne__principal">
+          <h2 class="ligne__titre">{{ inscription.evenementTitre }}</h2>
+          <p class="ligne__meta">
+            {{ inscription.utilisateurNomComplet }} · Inscrit le
+            {{ inscription.dateInscription | date: 'dd/MM/yyyy' }}
+          </p>
+        </div>
+        <select
+          [ngModel]="inscription.etat"
+          (ngModelChange)="changerEtat(inscription, $event)"
+          [disabled]="modificationEnCoursId() === inscription.id"
+          class="select-etat"
+        >
+          @for (etat of etatsPossibles; track etat) {
+            <option [value]="etat">{{ libelleEtat(etat) }}</option>
+          }
+        </select>
+      </div>
+    }
+  </div>
+</div>

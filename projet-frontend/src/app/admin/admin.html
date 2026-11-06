@@ -1,0 +1,23 @@
+<div class="page">
+  <header class="entete">
+    <a routerLink="/" class="entete__marque">Événements&nbsp;&amp;&nbsp;Inscriptions</a>
+    <nav class="entete__nav">
+      <span class="entete__utilisateur">{{ utilisateur()?.prenom }} {{ utilisateur()?.nom }}</span>
+      <button (click)="deconnexion()" class="entete__lien entete__lien--bouton">
+        Se déconnecter
+      </button>
+    </nav>
+  </header>
+
+  <div class="corps">
+    <nav class="onglets">
+      <a routerLink="categories" routerLinkActive="onglet--actif" class="onglet">Catégories</a>
+      <a routerLink="evenements" routerLinkActive="onglet--actif" class="onglet">Événements</a>
+      <a routerLink="inscriptions" routerLinkActive="onglet--actif" class="onglet">Inscriptions</a>
+    </nav>
+
+    <main class="contenu">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

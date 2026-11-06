@@ -1,0 +1,26 @@
+:host { display: block; min-height: 100vh; background: #0F1626; }
+.page { min-height: 100vh; font-family: 'Work Sans', sans-serif; color: #F4F1E9; }
+.contenu { max-width: 700px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+.retour { display: inline-block; font-size: 0.8125rem; color: #9AA5BD; text-decoration: none; margin-bottom: 2rem; }
+.retour:hover { color: #E8A33D; }
+.titre { font-family: 'Fraunces', serif; font-style: italic; font-weight: 500; font-size: 2rem; margin: 0 0 2rem; }
+
+.message { font-size: 0.9375rem; color: #9AA5BD; padding: 1rem 0; }
+.message--erreur { color: #E8917A; }
+
+.liste { display: flex; flex-direction: column; }
+.ligne { display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.5rem 0; border-bottom: 1px dashed rgba(244, 241, 233, 0.12); }
+.ligne__titre { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.125rem; margin: 0 0 0.35rem; }
+.ligne__meta { font-size: 0.8125rem; color: #9AA5BD; margin: 0; }
+
+.etat { font-weight: 500; }
+.etat--en_attente { color: #E8A33D; }
+.etat--confirmee { color: #6FCF97; }
+.etat--annulee { color: #D9694F; }
+.etat--terminee { color: #9AA5BD; }
+
+.bouton { font-family: 'Work Sans', sans-serif; font-size: 0.8125rem; font-weight: 500; border: none; cursor: pointer; padding: 0.5rem 1rem; border-radius: 4px; white-space: nowrap; }
+.bouton--contour { background: transparent; color: #F4F1E9; border: 1px solid rgba(244, 241, 233, 0.3); }
+.bouton--contour:hover:not(:disabled) { border-color: #D9694F; color: #D9694F; }
+.bouton--contour:disabled { opacity: 0.5; cursor: not-allowed; }
